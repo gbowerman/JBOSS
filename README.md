@@ -1,0 +1,2 @@
+# JBOSS
+ JBOSS EAP templates
