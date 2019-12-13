@@ -86,7 +86,7 @@
       "version": "latest"
     },
     "imageReference": "[variables('osType')]",
-    "storageApiVersion": "2019-02-02",
+    "storageApiVersion": "2019-06-01",
     "computeApiVersion": "2019-03-01",
     "networkApiVersion": "2019-09-01"
   },
