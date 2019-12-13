@@ -16,6 +16,13 @@
       },
       "maxLength": 12
     },
+    "storageAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "Unique name for a storage account that all the JBOSS nodes will share."
+      },
+      "maxLength": 24
+    },
     "instanceCount": {
       "type": "int",
       "metadata": {
@@ -36,23 +43,23 @@
       }
     },
     "redHatUsername": {
-        "type": "string",
-        "metadata": {
-          "description": "Red Hat account username."
-        }
-      },
-     "redHatPassword": {
-        "type": "securestring",
-        "metadata": {
-          "description": "Red Hat account password."
-        }
-      },
-      "rhsmPool": {
-        "type": "string",
-        "metadata": {
-          "description": "Red Hat Subscription Manager Pool (must contain JBoss EAP entitlement)."
-        }
+      "type": "string",
+      "metadata": {
+        "description": "Red Hat account username."
       }
+    },
+    "redHatPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Red Hat account password."
+      }
+    },
+    "rhsmPool": {
+      "type": "string",
+      "metadata": {
+        "description": "Red Hat Subscription Manager Pool (must contain JBoss EAP entitlement)."
+      }
+    }
   },
   "variables": {
     "location": "[resourceGroup().location]",
@@ -79,10 +86,35 @@
       "version": "latest"
     },
     "imageReference": "[variables('osType')]",
+    "storageApiVersion": "2019-02-02",
     "computeApiVersion": "2019-03-01",
     "networkApiVersion": "2019-09-01"
   },
   "resources": [
+    {
+      "name": "[parameters('storageAccountName')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "[variables('storageApiVersion')]",
+      "location": "[parameters('location')]",
+      "kind": "StorageV2",
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "properties": {
+        "accessTier": "Hot"
+      },
+      "resources": [
+        {
+          "name": "jgroupcontainer",
+          "type": "blobServices/containers",
+          "apiVersion": "[variables('storageApiVersion')]",
+          "dependsOn": [
+            "[parameters('storageAccountName')]"
+          ]
+        }
+      ]
+    },
     {
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[variables('virtualNetworkName')]",
