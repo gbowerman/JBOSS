@@ -10,3 +10,5 @@ Work in progress to create functional JBOSS EAP templates
 - Write the Azure Ping config file in the cloud-init script
 - Identify additional JBOSS/JGROUP configuration
 - Update Load Balancer rules for default JBOSS EAP ports
+- Switch VMs to use SSH key for auth
+- Update Readme with user guide and reference links
