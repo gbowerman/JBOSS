@@ -34,7 +34,25 @@
       "metadata": {
         "description": "Admin password on all VMs."
       }
-    }
+    },
+    "redHatUsername": {
+        "type": "string",
+        "metadata": {
+          "description": "Red Hat account username."
+        }
+      },
+     "redHatPassword": {
+        "type": "securestring",
+        "metadata": {
+          "description": "Red Hat account password."
+        }
+      },
+      "rhsmPool": {
+        "type": "string",
+        "metadata": {
+          "description": "Red Hat Subscription Manager Pool (must contain JBoss EAP entitlement)."
+        }
+      }
   },
   "variables": {
     "location": "[resourceGroup().location]",
@@ -179,6 +197,7 @@
           },
           "osProfile": {
             "computerNamePrefix": "[parameters('vmssName')]",
+            "customData": "[base64(concat('#cloud-config\n\nruncmd:\n\n- subscription-manager register --username ', parameters('redHatUsername'), ' --password ', parameters('redHatPassword'), '\n\n- subscription-manager attach --pool=', parameters('rhsmPool'),'\n\n- subscription-manager repos --enable=jb-eap-7.2-for-rhel-7-server-rpms\n\n- yum groupinstall jboss-eap7 -y'))]",
             "adminUsername": "[parameters('adminUsername')]",
             "adminPassword": "[parameters('adminPassword')]"
           },
