@@ -106,7 +106,7 @@
       },
       "resources": [
         {
-          "name": "jgroupcontainer",
+          "name": "[concat('default/','jgroupcontainer']",
           "type": "blobServices/containers",
           "apiVersion": "[variables('storageApiVersion')]",
           "dependsOn": [
