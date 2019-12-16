@@ -42,6 +42,18 @@
         "description": "Admin password on all VMs."
       }
     },
+    "jbossAdmin": {
+      "type": "string",
+      "metadata": {
+        "description": "JBOSS management user."
+      }
+    },
+    "jbossPasswd": {
+      "type": "securestring",
+      "metadata": {
+        "description": "JBOSS management user password."
+      }
+    },
     "redHatUsername": {
       "type": "string",
       "metadata": {
@@ -74,7 +86,7 @@
     "natPoolName": "[concat(parameters('vmssName'), 'natpool')]",
     "bePoolName": "[concat(parameters('vmssName'), 'bepool')]",
     "natStartPort": 50000,
-    "natEndPort": 50120,
+    "natEndPort": 50100,
     "natBackendPort": 22,
     "nicName": "[concat(parameters('vmssName'), 'nic')]",
     "ipConfigName": "[concat(parameters('vmssName'), 'ipconfig')]",
@@ -192,9 +204,21 @@
                 "id": "[variables('frontEndIPConfigID')]"
               },
               "protocol": "Tcp",
-              "frontendPortRangeStart": "9000",
-              "frontendPortRangeEnd": "9120",
-              "backendPort": "9000"
+              "frontendPortRangeStart": "8080",
+              "frontendPortRangeEnd": "8180",
+              "backendPort": "8080"
+            }
+          },
+          {
+            "name": "natpool3",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('frontEndIPConfigID')]"
+              },
+              "protocol": "Tcp",
+              "frontendPortRangeStart": "9090",
+              "frontendPortRangeEnd": "9190",
+              "backendPort": "9090"
             }
           }
         ]
@@ -229,7 +253,7 @@
           },
           "osProfile": {
             "computerNamePrefix": "[parameters('vmssName')]",
-            "customData": "[base64(concat('#cloud-config\n\nruncmd:\n\n- subscription-manager register --username ', parameters('redHatUsername'), ' --password ', parameters('redHatPassword'), '\n- subscription-manager attach --pool=', parameters('rhsmPool'),'\n- subscription-manager repos --enable=jb-eap-7.2-for-rhel-7-server-rpms\n- yum groupinstall jboss-eap7 -y\n- systemctl enable eap7-standalone.service'))]",
+            "customData": "[base64(concat('#cloud-config\n\nruncmd:\n\n- subscription-manager register --username ', parameters('redHatUsername'), ' --password ', parameters('redHatPassword'), '\n- subscription-manager attach --pool=', parameters('rhsmPool'),'\n- subscription-manager repos --enable=jb-eap-7.2-for-rhel-7-server-rpms\n- yum groupinstall jboss-eap7 -y\n- systemctl enable eap7-standalone.service\n- systemctl start eap7-standalone.service\n/opt/rh/eap7/root/usr/share/wildfly/bin/add-user.sh -u ', parameters('jbossAdmin'), ' -p ', parameters('jbossPasswd'), ' -g guest,mgmtgroup'))]",
             "adminUsername": "[parameters('adminUsername')]",
             "adminPassword": "[parameters('adminPassword')]"
           },
@@ -257,7 +281,10 @@
                           },
                           {
                             "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatPools/natpool2')]"
-                          }
+                          },
+                          {
+                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatPools/natpool3')]"
+                          }                          
                         ]
                       }
                     }

@@ -7,3 +7,8 @@ runcmd:
 - subscription-manager repos --enable=jb-eap-7.2-for-rhel-7-server-rpms
 - yum groupinstall jboss-eap7 -y
 - systemctl enable eap7-standalone.service
+- systemctl start  eap7-standalone.service
+
+# to do: add management user
+# EAP_HOME/bin/add-user.sh -u '<jbossuser>' -p '<jbosspswd>' -g 'guest,mgmtgroup'
+/opt/rh/eap7/root/usr/share/wildfly/bin/add-user.sh -u '<jbossuser>' -p '<jbosspswd>' -g 'guest,mgmtgroup'
