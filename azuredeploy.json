@@ -86,7 +86,7 @@
     "natPoolName": "[concat(parameters('vmssName'), 'natpool')]",
     "bePoolName": "[concat(parameters('vmssName'), 'bepool')]",
     "natStartPort": 50000,
-    "natEndPort": 50100,
+    "natEndPort": 50120,
     "natBackendPort": 22,
     "nicName": "[concat(parameters('vmssName'), 'nic')]",
     "ipConfigName": "[concat(parameters('vmssName'), 'ipconfig')]",
@@ -205,7 +205,7 @@
               },
               "protocol": "Tcp",
               "frontendPortRangeStart": "8080",
-              "frontendPortRangeEnd": "8180",
+              "frontendPortRangeEnd": "8200",
               "backendPort": "8080"
             }
           },
@@ -217,7 +217,7 @@
               },
               "protocol": "Tcp",
               "frontendPortRangeStart": "9090",
-              "frontendPortRangeEnd": "9190",
+              "frontendPortRangeEnd": "9210",
               "backendPort": "9090"
             }
           }
