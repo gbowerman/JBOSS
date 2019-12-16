@@ -1,1 +1,9 @@
-"customData": "[base64(concat('#cloud-config\n\nruncmd:\n\n- subscription-manager register --username ', parameters('redHatUsername'), ' --password ', parameters('redHatPassword'), '\n\n- subscription-manager attach --pool=', parameters('rhsmPool'),'\n\n- subscription-manager repos --enable=jb-eap-7.2-for-rhel-7-server-rpms\n\n- yum groupinstall jboss-eap7 -y'))]"
+#cloud-config
+
+runcmd:
+
+- subscription-manager register --username <redHatUsername> --password <redHatPassword>
+- subscription-manager attach --pool=<rhsmPool>
+- subscription-manager repos --enable=jb-eap-7.2-for-rhel-7-server-rpms
+- yum groupinstall jboss-eap7 -y
+- systemctl enable eap7-standalone.service
