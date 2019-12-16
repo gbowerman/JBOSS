@@ -5,6 +5,9 @@ Work in progress to create functional JBOSS EAP templates
     <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/>
 </a>
 
+# Troubleshooting deployment
+- Look at /var/log/cloud-init-output.log
+
 ## To do
 - DONE: Create a storage account and container in the template (investigate using the VMSS storage account)
 - DONE: Register and attach subscription manager pool & repo
