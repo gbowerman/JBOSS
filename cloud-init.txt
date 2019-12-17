@@ -9,3 +9,8 @@ runcmd:
 - systemctl enable eap7-standalone.service
 - systemctl start  eap7-standalone.service
 - /opt/rh/eap7/root/usr/share/wildfly/bin/add-user.sh -u '<jbossuser>' -p '<jbosspswd>' -g 'guest,mgmtgroup'
+- firewall-cmd --zone=public --add-port=8080/tcp --permanent 
+- firewall-cmd --zone=public --add-port=8180/tcp --permanent 
+- firewall-cmd --zone=public --add-port=9990/tcp --permanent 
+- firewall-cmd --zone=public --add-port=10090/tcp --permanent 
+- firewall-cmd --reload 
