@@ -13,3 +13,5 @@ runcmd:
 - firewall-offline-cmd --add-port=8180/tcp
 - firewall-offline-cmd --add-port=9990/tcp
 - firewall-offline-cmd --add-port=10090/tcp
+- systemctl enable firewalld
+- systemctl start firewalld

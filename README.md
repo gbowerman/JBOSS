@@ -20,5 +20,5 @@ Work in progress to create functional JBOSS EAP templates
 - Identify additional JBOSS/JGROUP configuration
 - DONE: Update Load Balancer rules for default JBOSS default management port 9090
 - DONE: Update Load Balancer rules for default JBOSS default server port 8080
-- Switch VMs to use SSH key for auth
+- DONE: Switch VMs to use SSH key for auth
 - Update Readme with user guide and reference links
