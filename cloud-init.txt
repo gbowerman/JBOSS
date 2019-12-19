@@ -7,5 +7,7 @@ runcmd:
 - subscription-manager repos --enable=jb-eap-7.2-for-rhel-7-server-rpms
 - yum groupinstall jboss-eap7 -y
 - /opt/rh/eap7/root/usr/share/wildfly/bin/add-user.sh -u '<jbossuser>' -p '<jbosspswd>' -g 'guest,mgmtgroup'
--  curl https://raw.githubusercontent.com/gbowerman/azure-minecraft/master/azure-marketplace/minecraft-server-ubuntu/mcupgrade.sh > /srv/minecraft_server/mcupgrade.sh
+- curl https://raw.githubusercontent.com/gbowerman/JBOSS/master/scripts/jboss-eap-setup.sh > ./jboss-eap-setup.sh
+- chmod +x ./jboss-eap-setup.sh
+- ./jboss-eap-setup.sh
 
