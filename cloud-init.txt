@@ -10,4 +10,3 @@ runcmd:
 - curl https://raw.githubusercontent.com/gbowerman/JBOSS/master/scripts/jboss-eap-setup.sh > ./jboss-eap-setup.sh
 - chmod +x ./jboss-eap-setup.sh
 - ./jboss-eap-setup.sh
-
