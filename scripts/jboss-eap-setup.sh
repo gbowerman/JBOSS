@@ -2,7 +2,7 @@
 # JBOSS EAP clustered setup script
 export STORAGE_ACCOUNT_NAME=$1
 export STORAGE_ACCESS_KEY=$2
-export EAP_HOME==/opt/rh/eap7/root/usr/share/wildfly
+export EAP_HOME=/opt/rh/eap7/root/usr/share/wildfly
 cp $EAP_HOME/docs/examples/configs/standalone-azure-ha.xml $EAP_HOME/standalone/configuration/standalone-ha.xml
 firewall-offline-cmd --add-port=8080/tcp
 firewall-offline-cmd --add-port=8180/tcp
